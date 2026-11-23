@@ -32,11 +32,14 @@ INK = (16, 24, 40)         # text on white
 GREY = (152, 162, 179)     # muted text
 LIGHT_GREY = (208, 213, 221)
 
-FONT_DIR = "/usr/share/fonts/truetype/dejavu"
+FONT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts")
 
 
 def font(name, size):
-    return ImageFont.truetype(os.path.join(FONT_DIR, name), size)
+    path = os.path.join(FONT_DIR, name)
+    if os.path.exists(path):
+        return ImageFont.truetype(path, size)
+    return ImageFont.load_default(size)
 
 
 def centered(draw, y, text, fnt, fill):
